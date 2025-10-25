@@ -16,4 +16,5 @@ RUN ls --recursive /app/external-files/
 EXPOSE 8080
 
 # Tell Spring Boot to serve /app/external-files as static
-ENTRYPOINT ["java", "-Dspring.resources.static-locations=file:/app/external-files/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/", "-jar", "kitchenbrains.war"]
+ENTRYPOINT ["java", "-jar", "kitchenbrains.war", \
+    "--spring.resources.static-locations=file:/app/external-files/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/"]
