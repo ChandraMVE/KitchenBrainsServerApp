@@ -1,10 +1,13 @@
-# Use official Tomcat base image
-FROM tomcat:9.0-jdk17
+# Use a base JDK image
+FROM eclipse-temurin:17-jdk
 
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Copy your WAR
+COPY kitchenbrains.war /app/kitchenbrains.war
 
-COPY kitchenbrains.war /usr/local/tomcat/webapps/ROOT.war
+WORKDIR /app
 
+# Expose the default Spring Boot port
 EXPOSE 8080
 
-CMD ["catalina.sh", "run"]
+# Run the WAR directly (Spring Boot will auto-launch embedded Tomcat)
+ENTRYPOINT ["java", "-jar", "kitchenbrains.war"]
