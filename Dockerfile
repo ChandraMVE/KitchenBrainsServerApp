@@ -17,5 +17,7 @@ COPY application.properties /app/application.properties
 EXPOSE 8080
 
 # Start Spring Boot app with explicit config file
+	
 ENTRYPOINT ["java", "-jar", "kitchenbrains.war", \
-    "--spring.config.location=file:/app/application.properties"]
+    "--spring.config.additional-location=file:/app/application.properties", \
+    "--spring.resources.static-locations=file:/app/external-files/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/"]	
