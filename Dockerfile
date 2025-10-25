@@ -14,6 +14,4 @@ COPY external-files/ /app/external-files/
 EXPOSE 8080
 
 # Run Spring Boot app and tell it to serve static content from /app/external-files
-ENTRYPOINT ["java", "-jar", "kitchenbrains.war", \
-  "--server.port=8080", \
-  "--spring.resources.static-locations=file:/app/external-files/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/"]
+ENTRYPOINT ["java", "-jar", "kitchenbrains.war", "--spring.config.location=file:/app/application.properties"]
