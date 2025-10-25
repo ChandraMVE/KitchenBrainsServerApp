@@ -10,6 +10,8 @@ COPY kitchenbrains.war /app/kitchenbrains.war
 # Copy your downloads folder for images, logos, and slides
 COPY downloads/ /app/downloads/
 
+RUN ls --recursive /app/downloads/
+
 # Expose the port that Spring Boot uses
 EXPOSE 8080
 
