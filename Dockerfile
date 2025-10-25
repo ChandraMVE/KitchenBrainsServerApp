@@ -1,19 +1,21 @@
-# Use a modern JDK runtime
+# Use modern JDK runtime
 FROM eclipse-temurin:17-jdk
 
-# Create app directory
+# Create working directory
 WORKDIR /app
 
 # Copy your compiled WAR
 COPY kitchenbrains.war /app/kitchenbrains.war
-COPY application.properties /app/application.properties
 
-# Copy external static files
+# Copy static resources folder (images, CSS, JS)
 COPY external-files/ /app/external-files/
 
-# Expose port
+# Copy Spring Boot external configuration
+COPY application.properties /app/application.properties
+
+# Expose the Spring Boot port
 EXPOSE 8080
 
-# Run Spring Boot app and tell it to serve static content from /app/external-files
-# Start Tomcat manually and serve static folder directly
-ENTRYPOINT ["sh", "-c", "java -jar kitchenbrains.war & sleep 15 && cp -r /app/external-files /usr/local/tomcat/webapps/ROOT/external-files && tail -f /dev/null"]
+# Start Spring Boot app with explicit config file
+ENTRYPOINT ["java", "-jar", "kitchenbrains.war", \
+    "--spring.config.location=file:/app/application.properties"]
