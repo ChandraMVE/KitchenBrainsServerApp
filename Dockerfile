@@ -7,14 +7,13 @@ WORKDIR /app
 # Copy your compiled WAR
 COPY kitchenbrains.war /app/kitchenbrains.war
 
-# Copy your downloads folder for images, logos, and slides
-COPY downloads/ /app/downloads/
+# Copy your external files (logos, slides)
+COPY external-files/ /app/external-files/
 
-RUN ls --recursive /app/downloads/
+RUN ls --recursive /app/external-files/
 
 # Expose the port that Spring Boot uses
 EXPOSE 8080
 
-# Add this line to include external static location
-ENTRYPOINT ["java", "-jar", "kitchenbrains.war", \
-    "--spring.web.resources.static-locations=file:/app/downloads/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/"]
+# Tell Spring Boot to serve /app/external-files as static
+ENTRYPOINT ["java", "-Dspring.resources.static-locations=file:/app/external-files/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/", "-jar", "kitchenbrains.war"]
