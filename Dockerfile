@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy your compiled WAR
 COPY kitchenbrains.war /app/kitchenbrains.war
+COPY application.properties /app/application.properties
 
 # Copy external static files
 COPY external-files/ /app/external-files/
