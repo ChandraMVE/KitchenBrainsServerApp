@@ -13,5 +13,6 @@ COPY downloads/ /app/downloads/
 # Expose the port that Spring Boot uses
 EXPOSE 8080
 
-# Run the WAR directly (Spring Boot embedded Tomcat)
-ENTRYPOINT ["java", "-jar", "kitchenbrains.war"]
+# Add this line to include external static location
+ENTRYPOINT ["java", "-jar", "kitchenbrains.war", \
+    "--spring.web.resources.static-locations=file:/app/downloads/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/"]
